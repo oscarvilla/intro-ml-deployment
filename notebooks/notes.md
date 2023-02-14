@@ -1,15 +1,28 @@
-1. Add data:
+## 1. Add remotes:
+How to add your remotes
 
+```bash
+dvc remote add dataset_track gs://dvc-storage-tracker/dataset
+
+dvc remote add name_of_your_remote url_of_your_storage
+```
+
+## 2. Add data: 
+How to add data to tracking
+
+```bash
 dvc add dataset/finantials.csv
-dvc add dataset/opening_gross.csv
-dvc add dataset/movies.csv
+dvc add dataset/your_data_set.csv
 
 dvc add model/model.pkl
+```
 
-2. Push it to remotes
+## 3. Push data to remotes:
+How to then push data to remotes
 
+```bash
 dvc push dataset/finantials.csv -r dataset-track
-dvc push dataset/opening_gross.csv -r dataset-track
-dvc push dataset/movies.csv -r dataset-track
+dvc push dataset/your_data_set.csv -r name_of_your_remote
 
 dvc push model/model.pkl -r model-track
+```

@@ -26,4 +26,21 @@ movie_data = pd.read_csv(movie_data_path)
 finantials_data = pd.read_csv(finantials_data_path)
 opening_data = pd.read_csv(opening_data_path)
 
-breakpoint()
+numeric_columns_mask = (movie_data.dtypes == float) | (
+    movie_data.dtypes == int)
+numeric_columns = [
+    column for column in numeric_columns_mask.index if numeric_columns_mask[column]]
+movie_data = movie_data[numeric_columns + ["movie_title"]]
+
+finantials_data = finantials_data[[
+    "movie_title", "production_budget", "worldwide_gross"]]
+
+fin_movie_data = pd.merge(finantials_data, movie_data,
+                          on="movie_title", how="left")
+full_movie_data = pd.merge(
+    fin_movie_data, opening_data, on="movie_title", how="left")
+
+full_movie_data = full_movie_data.drop(["gross", "movie_title"], axis=1)
+full_movie_data.to_csv("dataset/full_data.csv", index=False)
+
+logger.info("Data fetched and prepared.")
