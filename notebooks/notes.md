@@ -26,3 +26,20 @@ dvc push dataset/your_data_set.csv -r name_of_your_remote
 
 dvc push model/model.pkl -r model-track
 ```
+
+## 4. Create dags:
+How to create teh dags
+
+```bash
+dvc run -n prepare -o dataset/full_data.csv python src/prepare.py 
+
+dvc run -n training -d dataset/full_data.csv python src/train.py 
+```
+
+## 5. Run dags:
+
+```bash
+dvc repro
+# to force the dags even if is in cache
+dvc repro -f
+```

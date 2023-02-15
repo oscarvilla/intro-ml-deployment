@@ -1,4 +1,4 @@
-from utils import update_model
+from utils import update_model, save_simple_metrics_report, get_model_performance_test_set
 from sklearn.model_selection import train_test_split, cross_validate, GridSearchCV
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
@@ -38,7 +38,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 logger.info("Setting hyperparameter to tunning...")
 
-param_tunning = {"core_model__n_estimators": range(20, 301, 20)}
+param_tunning = {"core_model__n_estimators": range(20, 301, 40)}
 
 grid_search = GridSearchCV(model, param_grid=param_tunning, scoring="r2", cv=5)
 
@@ -61,4 +61,11 @@ logger.info(f"Test Score: {test_score}")
 logger.info("Updating model...")
 update_model(grid_search.best_estimator_)
 
-breakpoint()
+logger.info("Generating model report...")
+validation_score = grid_search.best_estimator_.score(X_test, y_test)
+save_simple_metrics_report(train_score, test_score,
+                           validation_score, grid_search.best_estimator_)
+y_test_pred = grid_search.best_estimator_.predict(X_test)
+get_model_performance_test_set(y_test, y_test_pred)
+
+logger.info("Training acomplished")
