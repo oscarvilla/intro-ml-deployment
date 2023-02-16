@@ -43,3 +43,12 @@ dvc repro
 # to force the dags even if is in cache
 dvc repro -f
 ```
+
+## Fix: 
+How to remove from Git tracking files added by error
+
+```bash
+git rm --cacged <file_to_remove>
+git add .
+git commit -m "removed files tracked by error"
+```
