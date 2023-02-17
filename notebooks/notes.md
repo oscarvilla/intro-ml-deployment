@@ -52,3 +52,16 @@ git rm --cacged <file_to_remove>
 git add .
 git commit -m "removed files tracked by error"
 ```
+
+## Run the app:
+
+```bash
+uvicorn api.main:app
+```
+
+## Run tests:
+How to run the tests
+
+````bash
+pytest tests.py
+```
