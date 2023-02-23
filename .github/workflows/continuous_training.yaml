@@ -36,7 +36,7 @@ jobs:
       - name: Commit .dvc file changes
         run: |
           git config --local user.email "villaoscarad@gmail.com"
-          git config --local user.name "github_actions[devops]"
+          git config --local user.name "github-actions[devops]"
           git add model/model.pkl.dvc
           git commit -m "Updating model tracked"
       - uses: ad-m/github-push-action@master
