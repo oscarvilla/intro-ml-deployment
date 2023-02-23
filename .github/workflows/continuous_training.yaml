@@ -1,6 +1,6 @@
 name: Continuous training
 on:
-  push: 
+  push:
     branches:
       - continuous_training
   schedule:
@@ -26,11 +26,12 @@ jobs:
           source venv/bin/activate
           pip install -r src/requirements.txt
           export GOOGLE_APPLICATION_CREDENTIALS=$(python utilities/setter.py)
-          dvc pull model/model.pkl -r model-track
+          dvc pull model/model.pkl.dvc -r model-track
           dvc unprotect model/model.pkl
           dvc repro -f
           echo "Training completed."
-          dvc add model/model.pkl.dvc -r model-track
+          dvc remote add model_track gs://dvc-storage-tracker/model
+          dvc add model/model.pkl
           dvc push model/model.pkl.dvc -r model-track
       - name: Commit .dvc file changes
         run: |
