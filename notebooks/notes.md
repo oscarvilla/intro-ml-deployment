@@ -28,7 +28,7 @@ dvc push model/model.pkl -r model-track
 ```
 
 ## 4. Create dags:
-How to create teh dags
+How to create teh DAGs
 
 ```bash
 dvc run -n prepare -o dataset/full_data.csv python src/prepare.py 
