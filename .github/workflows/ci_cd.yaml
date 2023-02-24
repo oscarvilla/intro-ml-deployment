@@ -1,5 +1,19 @@
 name: Continuous Integration / Continuous Deployment
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  workflow_run:
+    workflows: ["Continuous training"]
+    branches: [main]
+    types:
+      - completed
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: Why to run it?
+        required: false
+        default: running CI/CD
 jobs:
   ci_cd:
     runs-on: ubuntu-latest
@@ -33,4 +47,3 @@ jobs:
       - name: Deployment to Cloud Run
         run: |
           gcloud run services update $SERVICE_NAME --region=$REGION --image=$REGISTRY_NAME:$GITHUB_SHA
-
