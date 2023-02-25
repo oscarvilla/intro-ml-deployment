@@ -1,5 +1,5 @@
 name: Continuous training
-# on:
+on:
 #   push:
 #     branches:
 #       - continuous_training
