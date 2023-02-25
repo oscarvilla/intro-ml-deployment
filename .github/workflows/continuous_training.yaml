@@ -1,10 +1,10 @@
 name: Continuous training
-on:
-  push:
-    branches:
-      - continuous_training
-  schedule:
-    - cron: "0 */6 * * *"
+# on:
+#   push:
+#     branches:
+#       - continuous_training
+#   schedule:
+#     - cron: "0 */6 * * *"
   workflow_dispatch:
     inputs:
       reason:
